@@ -11,7 +11,7 @@ const person: Person = {
   avatar: "/images/avatar.jpg",
   email: "israel.martinez12w@gmail.com",
   location: "America/Mexico_City", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Spanish"], // optional: Leave the array empty if you don't want to display languages
+  languages: ["English", "Spanish"], // optional: Leave the array empty if you don’t want to display languages
 };
 
 const newsletter: Newsletter = {
@@ -67,7 +67,7 @@ const home: Home = {
   },
   subline: (
     <>
-      I'm Israel, a design engineer at{" "}
+      I’m Israel, a design engineer at{" "}
       <Logo
         dark
         icon="/trademarks/wordmark-dark.svg"
@@ -125,7 +125,7 @@ const about: About = {
           </>,
         ],
         images: [
-          // optional: leave the array empty if you don't want to display images
+          // optional: leave the array empty if you don’t want to display images
           {
             src: "/images/projects/project-01/cover-01.jpg",
             alt: "Once UI Project",
@@ -181,7 +181,7 @@ const about: About = {
             icon: "figma",
           },
         ],
-        // optional: leave the array empty if you don't want to display images
+        // optional: leave the array empty if you don’t want to display images
         images: [
           {
             src: "/images/projects/project-01/cover-02.jpg",
@@ -216,7 +216,7 @@ const about: About = {
             icon: "supabase",
           },
         ],
-        // optional: leave the array empty if you don't want to display images
+        // optional: leave the array empty if you don’t want to display images
         images: [
           {
             src: "/images/projects/project-01/cover-04.jpg",
