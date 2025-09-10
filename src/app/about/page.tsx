@@ -139,11 +139,10 @@ const Pill: React.FC<{ icon: string; children: React.ReactNode; href?: string }>
     background="neutral-alpha-weak"
     border="neutral-medium"
     radius="full"
-    padding="6"
     gap="8"
     vertical="center"
     as={href ? ("a" as any) : ("div" as any)}
-    href={href}
+  
     style={{ textDecoration: "none" }}
   >
     <Icon name={icon} />
