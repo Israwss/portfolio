@@ -10,13 +10,13 @@ const person: Person = {
   role: "Data Scientist",
   avatar: "/images/avatar.jpg",
   email: "israel.martinez12w@gmail.com",
-  location: "America/Mexico_City", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  location: "America/Mexico_City", // Expecting the IANA time zone identifier, e.g.,
   languages: ["English", "Spanish"], // optional: Leave the array empty if you don’t want to display languages
 };
 
 const newsletter: Newsletter = {
   display: true,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
+  title: <>Subscribe to {person.firstName}s Newsletter</>,
   description: <>My weekly newsletter about creativity and engineering</>,
 };
 
@@ -49,7 +49,7 @@ const home: Home = {
   path: "/",
   image: "/images/og/home.jpg",
   label: "Home",
-  title: `${person.name}'s Portfolio`,
+  title: "${person.name}'s Portfolio",
   description: `Portfolio website showcasing my work as a ${person.role}`,
   headline: <>Building bridges between design and code</>,
   featured: {
