@@ -1,91 +1,115 @@
-# Magic Portfolio
 
-Magic Portfolio is a simple, clean, beginner-friendly portfolio template. It supports an MDX-based content system for projects and blog posts, an about / CV page and a gallery.
+```md
+# Israel Martínez — Portfolio
 
-View the demo [here](https://demo.magic-portfolio.com).
+A clean, fast, and content-first personal website for my work in **Computer Engineering** and **Data Science**.  
+It includes a blog powered by MDX (with posts on **NTN** and **6G**), an **About / CV** page, a **Personal Schedule** page that handles overlapping classes like Google Calendar, and a small gallery.
 
-![Magic Portfolio](public/images/og/home.jpg)
-
-## Getting started
-
-**1. Clone the repository**
-```
-git clone https://github.com/once-ui-system/magic-portfolio.git
-```
-
-**2. Install dependencies**
-```
-npm install
-```
-
-**3. Run dev server**
-```
-npm run dev
-```
-
-**4. Edit config**
-```
-src/resources/once-ui.config.js
-```
-
-**5. Edit content**
-```
-src/resources/content.js
-```
-
-**6. Create blog posts / projects**
-```
-Add a new .mdx file to src/app/blog/posts or src/app/work/projects
-```
-
-Magic Portfolio was built with [Once UI](https://once-ui.com) for [Next.js](https://nextjs.org). It requires Node.js v18.17+.
-
-## Documentation
-
-Docs available at: [docs.once-ui.com](https://docs.once-ui.com/docs/magic-portfolio/quick-start)
+![Site Preview](/public/images/og/home.jpg)
 
 ## Features
 
-### Once UI
-- All tokens, components & features of [Once UI](https://once-ui.com)
+- **MDX content** for blog posts and pages.
+- **Posts metadata & Open Graph**: automatic SEO tags with dynamic social images.
+- **Once UI + Next.js** design system for a cohesive, responsive UI.
+- **About / CV** page with structured sections (education, experience, skills).
+- **Personal Schedule** weekly view (Mon–Sat, 07:00–21:00) with **overlap-aware layout**.
+- **Fast**—static generation with Next.js, ready for Vercel.
 
-### SEO
-- Automatic open-graph and X image generation with next/og
-- Automatic schema and metadata generation based on the content file
+## Tech Stack
 
-### Design
-- Responsive layout optimized for all screen sizes
-- Timeless design without heavy animations and motion
-- Endless customization options through [data attributes](https://once-ui.com/docs/theming)
+- **Framework:** Next.js (App Router)
+- **UI:** Once UI System
+- **Content:** MDX
+- **Styling:** Utility classes from Once UI + CSS modules
+- **Deployment:** Vercel (recommended)
 
-### Content
-- Render sections conditionally based on the content file
-- Enable or disable pages for blog, work, gallery and about / CV
-- Generate and display social links automatically
-- Set up password protection for URLs
+## Project Structure
 
-### Localization
-- A localized, earlier version of Magic Portfolio is available with the next-intl library
-- To use localization, switch to the 'i18n' branch
+```
 
-## Creators
+src/
+app/
+page.tsx                # Home
+blog/
+page.tsx              # Blog index
+\[slug]/page.tsx       # Blog post page (MDX rendering)
+posts/                # Your .mdx posts live here
+ntn.mdx
+6g.mdx
+about/
+page.tsx              # About / CV
+schedule/
+page.tsx              # Personal Schedule (overlap-aware)
+components/
+blog/Posts.tsx
+blog/Post.tsx
+mdx.tsx
+about/TableOfContents.tsx
+resources/
+index.ts                # exports baseURL, blog, about, person, social
+...                     # person/about content you control
+public/
+images/
+og/home.jpg             # preview image
 
-Lorant One: [Threads](https://www.threads.net/@lorant.one) / [LinkedIn](https://www.linkedin.com/in/lorant-one/)
+````
 
-## Get involved
+## Content Authoring
 
-- Join the Design Engineers Club on [Discord](https://discord.com/invite/5EyAQ4eNdS) and share your project with us!
-- Deployed your docs? Share it on the [Once UI Hub](https://once-ui.com/hub) too! We feature our favorite apps on our landing page.
+### Blog posts
 
-## License
+Create an MDX file under `src/app/blog/posts/*.mdx` with frontmatter:
 
-Distributed under the CC BY-NC 4.0 License.
-- Attribution is required.
-- Commercial usage is not allowed.
-- You can extend the license to [Dopler CC](https://dopler.app/license) by purchasing a [Once UI Pro](https://once-ui.com/pricing) license.
+```md
+---
+title: "Non-Terrestrial Networks"
+summary: "An intro to NTNs for global 5G/6G connectivity."
+image: "/images/gallery/NTN-Featured-Image.png"
+publishedAt: "2025-09-25"
+tag: "Secure Data Networks"
+---
+````
 
-See `LICENSE.txt` for more information.
+Then write your post in MDX.
+Tags can be used to filter or group posts if your `Posts` component supports it.
 
-## Deploy with Vercel
+### About / CV
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fonce-ui-system%2Fmagic-portfolio&project-name=portfolio&repository-name=portfolio&redirect-url=https%3A%2F%2Fgithub.com%2Fonce-ui-system%2Fmagic-portfolio&demo-title=Magic%20Portfolio&demo-description=Showcase%20your%20designers%20or%20developer%20portfolio&demo-url=https%3A%2F%2Fdemo.magic-portfolio.com&demo-image=%2F%2Fraw.githubusercontent.com%2Fonce-ui-system%2Fmagic-portfolio%2Fmain%2Fpublic%2Fimages%2Fog%2Fhome.jpg)
+Edit your data in `src/resources` (e.g., `person`, `about`, `social`) or directly in `app/about/page.tsx`.
+Sections included: **About me**, **Education**, **Certifications**, **Languages**, **Experience**, **Skills**.
+
+### Personal Schedule
+
+The schedule lives at `src/app/schedule/page.tsx`.
+It displays **Mon–Sat** with 30-min grid and lays out **overlapping classes side-by-side** (Google Calendar style).
+You can customize time window, colors, and data in the page.
+
+## Getting Started
+
+```bash
+# 1) Install dependencies
+npm install
+
+# 2) Run dev server
+npm run dev
+# visit http://localhost:3000
+```
+
+> If you add new MDX files or change slugs, rebuild if using full SSG.
+> For dynamic content, consider `export const revalidate = 60` (ISR) or `export const dynamic = "force-dynamic"`.
+
+## Deployment
+
+* **Vercel**: push to a Git repo and import the project in Vercel.
+* Make sure `baseURL` in `src/resources` points to your production domain for correct OG/SEO metadata.
+
+## Credits & License
+
+* UI & structure inspired by modern Next.js + Once UI workflows.
+* Content © 2025 **Israel Martínez Jiménez**.
+* You can keep code under your preferred license (MIT recommended) and content under CC BY-NC 4.0 or “All rights reserved”, as you prefer.
+
+```
+
+```
