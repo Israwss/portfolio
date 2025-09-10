@@ -28,6 +28,7 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
     slug: post.slug,
   }));
 }
+export const runtime = "nodejs";
 
 export async function generateMetadata({
   params,

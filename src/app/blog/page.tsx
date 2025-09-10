@@ -11,6 +11,7 @@ export async function generateMetadata() {
     path: blog.path,
   });
 }
+export const runtime = "nodejs";
 
 export default function Blog() {
   return (

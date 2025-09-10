@@ -1,6 +1,7 @@
 import { About, Blog, Gallery, Home, Newsletter, Person, PersonalSchedule, Social, Work,PersonalInfo } from "@/types";
 import { Line, Logo, Row, Text } from "@once-ui-system/core";
 import path from "path";
+export const baseURL =process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 const person: Person = {
   firstName: "Israel",

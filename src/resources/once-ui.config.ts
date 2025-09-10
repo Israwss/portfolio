@@ -14,7 +14,7 @@ import {
 import { home } from "./index";
 
 // IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL: string = "https://demo.magic-portfolio.com";
+const baseURL =   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 const routes: RoutesConfig = {
   "/": true,
