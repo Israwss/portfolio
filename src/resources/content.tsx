@@ -1,15 +1,16 @@
-import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
+import { About, Blog, Gallery, Home, Newsletter, Person, PersonalSchedule, Social, Work,PersonalInfo } from "@/types";
 import { Line, Logo, Row, Text } from "@once-ui-system/core";
+import path from "path";
 
 const person: Person = {
-  firstName: "Selene",
-  lastName: "Yu",
-  name: `Selene Yu`,
-  role: "Design Engineer",
+  firstName: "Israel",
+  lastName: "Martinez",
+  name: `Israel Martinez`,
+  role: "Data Scientist",
   avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  email: "israel.martinez12w@gmail.com",
+  location: "America/Mexico_City", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  languages: ["English", "Spanish"], // optional: Leave the array empty if you don't want to display languages
 };
 
 const newsletter: Newsletter = {
@@ -24,17 +25,17 @@ const social: Social = [
   {
     name: "GitHub",
     icon: "github",
-    link: "https://github.com/once-ui-system",
+    link: "https://github.com/Israwss/Israwss",
   },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
+    link: "https://www.linkedin.com/in/israel-mart%C3%ADnez-jim%C3%A9nez-60225a1b0/",
   },
   {
     name: "Threads",
     icon: "threads",
-    link: "https://www.threads.com/@once_ui",
+    link: "https://www.threads.com/@isra_cuellar12w",
   },
   {
     name: "Email",
@@ -65,7 +66,7 @@ const home: Home = {
   },
   subline: (
     <>
-      I'm Selene, a design engineer at{" "}
+      I'm Israel, a design engineer at{" "}
       <Logo
         dark
         icon="/trademarks/wordmark-dark.svg"
@@ -239,16 +240,29 @@ const blog: Blog = {
 
 const work: Work = {
   path: "/work",
-  label: "Work",
+  label: "Personal Info",
   title: `Projects – ${person.name}`,
   description: `Design and dev projects by ${person.name}`,
   // Create new project pages by adding a new .mdx file to app/blog/posts
   // All projects will be listed on the /home and /work routes
 };
 
+const personalSchedule: PersonalSchedule = {
+  path: "/personal-schedule",
+  label: "Personal Schedule",
+  title: `Personal Schedule – ${person.name}`,
+  description: `A personal schedule by ${person.name}`,
+};
+const personalinfo: PersonalInfo = {
+  path: "/personal-info",
+  label: "Personal Info",
+  title: `Personal Info – ${person.name}`,
+  description: `A personal info page by ${person.name}`,
+};
+
 const gallery: Gallery = {
   path: "/gallery",
-  label: "Gallery",
+  label: "CV",
   title: `Photo gallery – ${person.name}`,
   description: `A photo collection by ${person.name}`,
   // Images by https://lorant.one

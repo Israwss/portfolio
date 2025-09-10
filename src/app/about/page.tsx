@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Avatar,
   Button,
@@ -11,328 +12,260 @@ import {
   Meta,
   Schema,
   Row,
+  Line,
 } from "@once-ui-system/core";
-import { baseURL, about, person, social } from "@/resources";
-import TableOfContents from "@/components/about/TableOfContents";
-import styles from "@/components/about/about.module.scss";
-import React from "react";
+import { baseURL } from "@/resources";
 
+// ===== CV DATA (derived from your resume) =====
+const CV = {
+  name: "Israel Martínez Jiménez",
+  role: "Computer Engineering & Data Science Student",
+  email: "israel.martinez12w@gmail.com",
+  phone: "+52 55 48 87 67 35",
+  location: "Mexico City, MX",
+  avatar: "/images/avatar.jpg", // optional; replace if you have one
+  about:
+    "I am passionate about technology and innovation. I continuously learn and explore new advances while building practical solutions across automation, data analysis, and artificial intelligence. My academic path and hands‑on projects have given me a solid foundation to contribute to cutting‑edge, data‑driven products.",
+  education: [
+    {
+      title: "B.S. in Data Science",
+      place: "IIMAS, UNAM",
+      timeframe: "Expected Jun 2026",
+    },
+    {
+      title: "B.S. in Computer Engineering",
+      place: "FI, UNAM",
+      timeframe: "Expected Nov 2025",
+    },
+    {
+      title: "Data Scientist C2",
+      place: "Santander Scholarships",
+      timeframe: "Certificate",
+    },
+    {
+      title: "Macro AI Training",
+      place: "Red de Macro Universidades de América Latina y el Caribe",
+      timeframe: "Program",
+    },
+  ],
+  certifications: [
+    "Python Institute – PCAP",
+    "Google Data Analytics",
+    "Smartsheet Product Certification",
+    "MongoDB Developer",
+  ],
+  languages: ["Spanish (Native)", "English (Advanced)"],
+  experience: [
+    {
+      company: "HSBC",
+      role: "Data Scientist Intern",
+      timeframe: "Aug 2024 – Present",
+      bullets: [
+        "Support data gathering, cleaning, and analysis for detection of suspicious activity (fraud & AML).",
+        "Contribute to ML models for anomaly detection and analytics reporting.",
+        "Collaborate with compliance teams on customer profiling, process automation, and monitoring under KYC/AML frameworks.",
+      ],
+    },
+    {
+      company: "Grupo Salinas",
+      role: "Data Analyst Intern",
+      timeframe: "Nov 2023 – Jul 2024",
+      bullets: [
+        "Designed and maintained dashboards for decision‑making across key business areas.",
+        "Analyzed and validated multiple data layers/cubes; identified trends and patterns in large data flows.",
+        "Solved business questions using data‑driven techniques and clear communication.",
+      ],
+    },
+    {
+      company: "Vantisoft",
+      role: "Automation Engineer Intern",
+      timeframe: "Jun 2022 – Oct 2023",
+      bullets: [
+        "Wrote and tested scripts in Python, Bash, and PowerShell to automate repetitive processes.",
+        "Created detailed documentation: runbooks, troubleshooting tips, and best practices.",
+        "Executed tests to validate automated solutions against requirements and standards.",
+      ],
+    },
+  ],
+  skills: [
+    {
+      title: "Programming & Data",
+      tags: ["Python", "SQL", "Linux", "Git", "Docker"],
+    },
+    {
+      title: "Python Libraries",
+      tags: [
+        "NumPy",
+        "Pandas",
+        "Polars",
+        "PySpark",
+        "scikit‑learn",
+        "TensorFlow",
+        "PyTorch",
+        "spaCy",
+        "NLTK",
+        "Transformers",
+      ],
+    },
+    {
+      title: "Data Visualization",
+      tags: ["Power BI", "Tableau", "Matplotlib", "Seaborn", "Plotly"],
+    },
+    {
+      title: "Databases",
+      tags: ["MongoDB", "PostgreSQL", "MySQL", "BigQuery"],
+    },
+    {
+      title: "Productivity",
+      tags: ["Excel (Advanced)", "Smartsheet"],
+    },
+  ],
+};
+
+// ===== Metadata =====
 export async function generateMetadata() {
   return Meta.generate({
-    title: about.title,
-    description: about.description,
+    title: `${CV.name} – CV`,
+    description: `${CV.role} | ${CV.location}`,
     baseURL: baseURL,
-    image: `/api/og/generate?title=${encodeURIComponent(about.title)}`,
-    path: about.path,
+    image: `/api/og/generate?title=${encodeURIComponent(CV.name + " – CV")}`,
+    path: "/cv",
   });
 }
 
-export default function About() {
-  const structure = [
-    {
-      title: about.intro.title,
-      display: about.intro.display,
-      items: [],
-    },
-    {
-      title: about.work.title,
-      display: about.work.display,
-      items: about.work.experiences.map((experience) => experience.company),
-    },
-    {
-      title: about.studies.title,
-      display: about.studies.display,
-      items: about.studies.institutions.map((institution) => institution.name),
-    },
-    {
-      title: about.technical.title,
-      display: about.technical.display,
-      items: about.technical.skills.map((skill) => skill.title),
-    },
-  ];
+// Small pill component
+const Pill: React.FC<{ icon: string; children: React.ReactNode; href?: string }> = ({ icon, children, href }) => (
+  <Row
+    background="neutral-alpha-weak"
+    border="neutral-medium"
+    radius="full"
+    padding="6"
+    gap="8"
+    vertical="center"
+    as={href ? ("a" as any) : ("div" as any)}
+    href={href}
+    style={{ textDecoration: "none" }}
+  >
+    <Icon name={icon} />
+    <Text variant="label-default-m">{children}</Text>
+  </Row>
+);
+
+// ===== Page =====
+export default function CVPage() {
   return (
-    <Column maxWidth="m">
+    <Column maxWidth="m" paddingTop="24" gap="24">
       <Schema
         as="webPage"
         baseURL={baseURL}
-        title={about.title}
-        description={about.description}
-        path={about.path}
-        image={`/api/og/generate?title=${encodeURIComponent(about.title)}`}
-        author={{
-          name: person.name,
-          url: `${baseURL}${about.path}`,
-          image: `${baseURL}${person.avatar}`,
-        }}
+        title={`${CV.name} – CV`}
+        description={`${CV.role} | ${CV.location}`}
+        path="/cv"
+        image={`/api/og/generate?title=${encodeURIComponent(CV.name + " – CV")}`}
+        author={{ name: CV.name, url: `${baseURL}/cv`, image: CV.avatar }}
       />
-      {about.tableOfContent.display && (
-        <Column
-          left="0"
-          style={{ top: "50%", transform: "translateY(-50%)" }}
-          position="fixed"
-          paddingLeft="24"
-          gap="32"
-          s={{ hide: true }}
-        >
-          <TableOfContents structure={structure} about={about} />
-        </Column>
-      )}
-      <Row fillWidth s={{ direction: "column" }} horizontal="center">
-        {about.avatar.display && (
-          <Column
-            className={styles.avatar}
-            position="sticky"
-            top="64"
-            s={{ position: "relative" }}
-            minWidth="160"
-            paddingX="l"
-            paddingBottom="xl"
-            gap="m"
-            flex={3}
-            horizontal="center"
-          >
-            <Avatar src={person.avatar} size="xl" />
-            <Row gap="8" vertical="center">
-              <Icon onBackground="accent-weak" name="globe" />
-              {person.location}
+
+      {/* Header */}
+      <Column gap="8" align="center" horizontal="center">
+        <Avatar size="xl" src={CV.avatar} />
+        <Heading variant="display-strong-l" align="center">{CV.name}</Heading>
+        <Text variant="display-default-xs" onBackground="neutral-weak" align="center">
+          {CV.role}
+        </Text>
+        <Row gap="8" wrap horizontal="center" paddingTop="8">
+          <Pill icon="mail" href={`mailto:${CV.email}`}>{CV.email}</Pill>
+          <Pill icon="phone" href={`tel:${CV.phone.replace(/\s|-/g, "")}`}>{CV.phone}</Pill>
+          <Pill icon="globe" >{CV.location}</Pill>
+        </Row>
+      </Column>
+
+      <Line />
+
+      {/* About */}
+      <Column gap="8">
+        <Heading variant="heading-strong-l">About me</Heading>
+        <Text variant="body-default-m">{CV.about}</Text>
+      </Column>
+
+      {/* Education */}
+      <Column gap="12">
+        <Heading variant="heading-strong-l">Education</Heading>
+        <Column gap="12">
+          {CV.education.map((e, i) => (
+            <Row key={i} fillWidth horizontal="between">
+              <Column>
+                <Text variant="label-strong-m">{e.title}</Text>
+                <Text onBackground="neutral-weak">{e.place}</Text>
+              </Column>
+              <Text onBackground="neutral-weak">{e.timeframe}</Text>
             </Row>
-            {person.languages && person.languages.length > 0 && (
-              <Row wrap gap="8">
-                {person.languages.map((language, index) => (
-                  <Tag key={index} size="l">
-                    {language}
-                  </Tag>
-                ))}
-              </Row>
-            )}
-          </Column>
-        )}
-        <Column className={styles.blockAlign} flex={9} maxWidth={40}>
-          <Column
-            id={about.intro.title}
-            fillWidth
-            minHeight="160"
-            vertical="center"
-            marginBottom="32"
-          >
-            {about.calendar.display && (
-              <Row
-                fitWidth
-                border="brand-alpha-medium"
-                background="brand-alpha-weak"
-                radius="full"
-                padding="4"
-                gap="8"
-                marginBottom="m"
-                vertical="center"
-                className={styles.blockAlign}
-                style={{
-                  backdropFilter: "blur(var(--static-space-1))",
-                }}
-              >
-                <Icon paddingLeft="12" name="calendar" onBackground="brand-weak" />
-                <Row paddingX="8">Schedule a call</Row>
-                <IconButton
-                  href={about.calendar.link}
-                  data-border="rounded"
-                  variant="secondary"
-                  icon="chevronRight"
-                />
-              </Row>
-            )}
-            <Heading className={styles.textAlign} variant="display-strong-xl">
-              {person.name}
-            </Heading>
-            <Text
-              className={styles.textAlign}
-              variant="display-default-xs"
-              onBackground="neutral-weak"
-            >
-              {person.role}
-            </Text>
-            {social.length > 0 && (
-              <Row
-                className={styles.blockAlign}
-                paddingTop="20"
-                paddingBottom="8"
-                gap="8"
-                wrap
-                horizontal="center"
-                fitWidth
-                data-border="rounded"
-              >
-                {social.map(
-                  (item) =>
-                    item.link && (
-                      <React.Fragment key={item.name}>
-                        <Row s={{ hide: true }}>
-                          <Button
-                            key={item.name}
-                            href={item.link}
-                            prefixIcon={item.icon}
-                            label={item.name}
-                            size="s"
-                            weight="default"
-                            variant="secondary"
-                          />
-                        </Row>
-                        <Row hide s={{ hide: false }}>
-                          <IconButton
-                            size="l"
-                            key={`${item.name}-icon`}
-                            href={item.link}
-                            icon={item.icon}
-                            variant="secondary"
-                          />
-                        </Row>
-                      </React.Fragment>
-                    ),
-                )}
-              </Row>
-            )}
-          </Column>
-
-          {about.intro.display && (
-            <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="xl">
-              {about.intro.description}
-            </Column>
-          )}
-
-          {about.work.display && (
-            <>
-              <Heading as="h2" id={about.work.title} variant="display-strong-s" marginBottom="m">
-                {about.work.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
-                {about.work.experiences.map((experience, index) => (
-                  <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
-                    <Row fillWidth horizontal="between" vertical="end" marginBottom="4">
-                      <Text id={experience.company} variant="heading-strong-l">
-                        {experience.company}
-                      </Text>
-                      <Text variant="heading-default-xs" onBackground="neutral-weak">
-                        {experience.timeframe}
-                      </Text>
-                    </Row>
-                    <Text variant="body-default-s" onBackground="brand-weak" marginBottom="m">
-                      {experience.role}
-                    </Text>
-                    <Column as="ul" gap="16">
-                      {experience.achievements.map(
-                        (achievement: React.ReactNode, index: number) => (
-                          <Text
-                            as="li"
-                            variant="body-default-m"
-                            key={`${experience.company}-${index}`}
-                          >
-                            {achievement}
-                          </Text>
-                        ),
-                      )}
-                    </Column>
-                    {experience.images && experience.images.length > 0 && (
-                      <Row fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
-                        {experience.images.map((image, index) => (
-                          <Row
-                            key={index}
-                            border="neutral-medium"
-                            radius="m"
-                            minWidth={image.width}
-                            height={image.height}
-                          >
-                            <Media
-                              enlarge
-                              radius="m"
-                              sizes={image.width.toString()}
-                              alt={image.alt}
-                              src={image.src}
-                            />
-                          </Row>
-                        ))}
-                      </Row>
-                    )}
-                  </Column>
-                ))}
-              </Column>
-            </>
-          )}
-
-          {about.studies.display && (
-            <>
-              <Heading as="h2" id={about.studies.title} variant="display-strong-s" marginBottom="m">
-                {about.studies.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
-                {about.studies.institutions.map((institution, index) => (
-                  <Column key={`${institution.name}-${index}`} fillWidth gap="4">
-                    <Text id={institution.name} variant="heading-strong-l">
-                      {institution.name}
-                    </Text>
-                    <Text variant="heading-default-xs" onBackground="neutral-weak">
-                      {institution.description}
-                    </Text>
-                  </Column>
-                ))}
-              </Column>
-            </>
-          )}
-
-          {about.technical.display && (
-            <>
-              <Heading
-                as="h2"
-                id={about.technical.title}
-                variant="display-strong-s"
-                marginBottom="40"
-              >
-                {about.technical.title}
-              </Heading>
-              <Column fillWidth gap="l">
-                {about.technical.skills.map((skill, index) => (
-                  <Column key={`${skill}-${index}`} fillWidth gap="4">
-                    <Text id={skill.title} variant="heading-strong-l">
-                      {skill.title}
-                    </Text>
-                    <Text variant="body-default-m" onBackground="neutral-weak">
-                      {skill.description}
-                    </Text>
-                    {skill.tags && skill.tags.length > 0 && (
-                      <Row wrap gap="8" paddingTop="8">
-                        {skill.tags.map((tag, tagIndex) => (
-                          <Tag key={`${skill.title}-${tagIndex}`} size="l" prefixIcon={tag.icon}>
-                            {tag.name}
-                          </Tag>
-                        ))}
-                      </Row>
-                    )}
-                    {skill.images && skill.images.length > 0 && (
-                      <Row fillWidth paddingTop="m" gap="12" wrap>
-                        {skill.images.map((image, index) => (
-                          <Row
-                            key={index}
-                            border="neutral-medium"
-                            radius="m"
-                            minWidth={image.width}
-                            height={image.height}
-                          >
-                            <Media
-                              enlarge
-                              radius="m"
-                              sizes={image.width.toString()}
-                              alt={image.alt}
-                              src={image.src}
-                            />
-                          </Row>
-                        ))}
-                      </Row>
-                    )}
-                  </Column>
-                ))}
-              </Column>
-            </>
-          )}
+          ))}
         </Column>
-      </Row>
+      </Column>
+
+      {/* Certifications */}
+      <Column gap="12">
+        <Heading variant="heading-strong-l">Certifications</Heading>
+        <Column as="ul" gap="8">
+          {CV.certifications.map((c, i) => (
+            <Text as="li" key={i} variant="body-default-m">{c}</Text>
+          ))}
+        </Column>
+      </Column>
+
+      {/* Languages */}
+      <Column gap="8">
+        <Heading variant="heading-strong-l">Languages</Heading>
+        <Row wrap gap="8">
+          {CV.languages.map((l, i) => (
+            <Tag key={i} size="l">{l}</Tag>
+          ))}
+        </Row>
+      </Column>
+
+      {/* Experience */}
+      <Column gap="16">
+        <Heading variant="heading-strong-l">Experience</Heading>
+        <Column gap="24">
+          {CV.experience.map((x, i) => (
+            <Column key={i} gap="8" fillWidth>
+              <Row fillWidth horizontal="between" vertical="end">
+                <Text variant="heading-strong-m">{x.company}</Text>
+                <Text onBackground="neutral-weak">{x.timeframe}</Text>
+              </Row>
+              <Text variant="label-default-m" onBackground="brand-weak">{x.role}</Text>
+              <Column as="ul" gap="8">
+                {x.bullets.map((b, j) => (
+                  <Text as="li" key={j} variant="body-default-m">{b}</Text>
+                ))}
+              </Column>
+            </Column>
+          ))}
+        </Column>
+      </Column>
+
+      {/* Skills */}
+      <Column gap="16">
+        <Heading variant="heading-strong-l">Skills</Heading>
+        <Column gap="24">
+          {CV.skills.map((s, i) => (
+            <Column key={i} gap="8">
+              <Text variant="label-strong-m">{s.title}</Text>
+              <Row wrap gap="8">
+                {s.tags.map((t, j) => (
+                  <Tag key={`${i}-${j}`} size="l">{t}</Tag>
+                ))}
+              </Row>
+            </Column>
+          ))}
+        </Column>
+      </Column>
+
+      <Line />
+
+      <Text onBackground="neutral-weak" align="center">
+        Last updated: {new Date().toLocaleDateString()}
+      </Text>
     </Column>
   );
 }

@@ -52,6 +52,7 @@ export default function About() {
       items: about.technical.skills.map((skill) => skill.title),
     },
   ];
+
   return (
     <Column maxWidth="m">
       <Schema
@@ -67,7 +68,7 @@ export default function About() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-    
+
       <Row fillWidth s={{ direction: "column" }} horizontal="center">
         {about.avatar.display && (
           <Column
@@ -98,7 +99,9 @@ export default function About() {
             )}
           </Column>
         )}
+
         <Column className={styles.blockAlign} flex={9} maxWidth={40}>
+          {/* Intro */}
           <Column
             id={about.intro.title}
             fillWidth
@@ -106,7 +109,6 @@ export default function About() {
             vertical="center"
             marginBottom="32"
           >
-           
             <Heading className={styles.textAlign} variant="display-strong-xl">
               {person.name}
             </Heading>
@@ -117,42 +119,38 @@ export default function About() {
             >
               {person.role}
             </Text>
-          
           </Column>
 
-           <Column maxWidth="m" paddingTop="24">
-      <Schema
-        as="blogPosting"
-        baseURL={baseURL}
-        title={blog.title}
-        description={blog.description}
-        path={blog.path}
-        image={`/api/og/generate?title=${encodeURIComponent(blog.title)}`}
-        author={{
-          name: person.name,
-          url: `${baseURL}/blog`,
-          image: `${baseURL}${person.avatar}`,
-        }}
-      />
-      <Heading marginBottom="l" variant="heading-strong-xl" marginLeft="24">
-        NTN
-      </Heading>
-      <Column fillWidth flex={1} gap="40">
-        <Posts range={[1, 1]} thumbnail />
-         <Heading marginBottom="l" variant="heading-strong-xl" marginLeft="24">
-        6G
-      </Heading>
+         {/* Who are you */}
+<Column marginBottom="32" gap="8">
+  <Heading variant="heading-strong-l">Who are you?</Heading>
+  <Text variant="body-default-m">
+    I am a student pursuing degrees in both Computer Engineering and Data Science at the same
+    time. I see myself as a curious, creative, and ambitious person, constantly seeking new
+    opportunities to grow and expand my knowledge.
+  </Text>
+</Column>
 
-        <Posts range={[2, 2]} thumbnail />
-    
-       
-      </Column>
-    </Column>
+{/* What do you like */}
+<Column marginBottom="32" gap="8">
+  <Heading variant="heading-strong-l">What do you like?</Heading>
+  <Text variant="body-default-m">
+    I have a deep love for mathematics and enjoy facing complex, challenging problems. I am
+    fascinated by discovering patterns hidden in the world around us, and I thrive when working
+    on projects that push me to think critically and creatively.
+  </Text>
+</Column>
 
-        
-        
-         
-         
+{/* Hobbies */}
+<Column marginBottom="32" gap="8">
+  <Heading variant="heading-strong-l">Hobbies</Heading>
+  <Text variant="body-default-m">
+    Outside of academics, I enjoy playing video games, watching movies—being a true cinephile—,
+    reading, listening to music, and exploring art in all its forms. These hobbies not only
+    inspire me but also help me maintain balance and creativity in my daily life.
+  </Text>
+</Column>
+
         </Column>
       </Row>
     </Column>
